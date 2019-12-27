@@ -1,6 +1,6 @@
 <?php
 function get_db() {
-  $dbh = new PDO("pgsql:dbname=termitesruncorn.com.au", 'trader');
+  $dbh = new PDO("pgsql:dbname=test.com.au", 'dbuser');
   return $dbh;
 }
 ?>
