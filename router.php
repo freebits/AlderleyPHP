@@ -1,28 +1,28 @@
 <?php
 
+function route($routes) {
+	$request_uri = $_SERVER["REQUEST_URI"];
+	$request_method = $_SERVER["REQUEST_METHOD"];
+	
+	foreach($routes as $route) {
+		
+		list($method, $regex, $handler) = $route;
 
-function index() {
-	echo "INDEX";
-}
+		if($method === $request_method &&
+			preg_match($regex, $request_uri, $params) === 1) {
 
-function hello($name) {
-	echo "HELLO ".$name[1];
+			call_user_func($handler, $params);
+			break;
+		}
+
+	}
 }
 
 $routes = array(
 	array('GET', '/^\/$/', 'index'),
-	array('GET', '/^\/hello\/([0-9A-Za-z]++)$/', 'hello')
+	array('GET', '/^\/hello\/(?<s>[0-9A-Za-z]++)$/', 'hello')
 );
 
-foreach($routes as $route) {
+route($routes);
 
-	$http_verb = $route[0];
-	$regex = $route[1];
-	$fn = $route[2];
-	
-	if(preg_match($regex, $_SERVER["REQUEST_URI"], $params) === 1) {
-		call_user_func($fn, $params);
-		break;
-	}
-}
 ?>
