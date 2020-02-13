@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['auth'])) {
+if(empty($_SESSION['auth'])) {
   $_SESSION['auth'] = FALSE;
 }
 

@@ -16,11 +16,11 @@ function route($routes) {
 	}
 }
 
-$routes = array(
-	array('GET', '/^\/$/', 'index'),
-	array('GET', '/^\/hello\/(?<s>[0-9A-Za-z]++)$/', 'hello')
-);
+#$routes = array(
+#	array('GET', '/^\/$/', 'index'),
+#	array('GET', '/^\/hello\/(?<s>[0-9A-Za-z]++)$/', 'hello')
+#);
 
-route($routes);
+#route($routes);
 
 ?>
