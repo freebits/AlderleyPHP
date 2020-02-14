@@ -1,25 +1,17 @@
 <?php
 function sanitize_input($i) {
-	$i = trim($i);
-	$i = stripslashes($i);
-	$i = htmlspecialchars($i);
-	return $i;
+	return htmlspecialchars(stripslashes(trim($i)));
 }
 
 function sanitize_string($s) {
-	$s = sanitize_input($s);
-	$s = filter_var($s, FILTER_SANITIZE_STRING);
-	return $s;
+	return filter_var(sanitize_input($s), FILTER_SANITIZE_STRING);
 }
 
 function sanitize_integer($i) {
-	$i = sanitize_input($i);
-	$i = filter_var($i, FILTER_SANITIZE_NUMBER_INT);
-	return $i;
+	return filter_var(sanitize_input($i), FILTER_SANITIZE_NUMBER_INT);
 }
 
 function sanitize_email($e) {
-	$e = sanitize_input($e);
-	$e = filter_var($e, FILTER_SANITIZE_EMAIL);
+	return filter_var(sanitize_input($e), FILTER_SANITIZE_EMAIL);
 }
 ?>
