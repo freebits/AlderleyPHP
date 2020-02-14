@@ -14,6 +14,6 @@ function generate_password($length = 32) {
 	for(i = 0; i < $keyspace_size; i++) {
 		$password .= $keyspace[random_int(0, $keyspace_size)];
 	}	
-	return $key;
+	return $password;
 }
 ?>
