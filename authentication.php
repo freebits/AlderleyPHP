@@ -16,12 +16,12 @@ function unauthenticate() {
 	unset($_SESSION['auth']);
 }
 
-function generate_password($length = 32) {
+function generate_password($password_length = 32) {
 	$keyspace = 
 		'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`1234567890-=~!@#$%^&*()_+[]{};:,.<>/?';
 	$keyspace_size = strlen($keyspace);
 	$password = '';
-	for(i = 0; i < $keyspace_size; i++) {
+	for(i = 0; i < $password_length; i++) {
 		$password .= $keyspace[random_int(0, $keyspace_size)];
 	}	
 	return $password;
