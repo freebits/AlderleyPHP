@@ -1,5 +1,5 @@
 <?php
 function redirect($uri) {
-	header('location: '.$uri);	
+	header('Location: '.$uri);	
 }
 ?>
