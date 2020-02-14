@@ -6,15 +6,14 @@ function check_signed_in() {
 	}
 }
 
-function generate_key($length = 32) {
+function generate_password($length = 32) {
 	$keyspace = 
 		'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`1234567890-=~!@#$%^&*()_+[]{};:,.<>/?';
 	$keyspace_size = strlen($keyspace);
-	$key = '';
+	$password = '';
 	for(i = 0; i < $keyspace_size; i++) {
-		$key .= random_int(0, $keyspace_size);
+		$password .= $keyspace[random_int(0, $keyspace_size)];
 	}	
 	return $key;
 }
-
 ?>
