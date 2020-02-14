@@ -1,9 +1,19 @@
 <?php
-function check_signed_in() {
+function authentication_required() {
 	session_start();
 	if(empty($_SESSION['auth'])) {
-		header('location: /sign_in.php');
+		header('HTTP/1.1 401 Unauthorized');
 	}
+}
+
+function authenticate() {
+	session_start();
+	$_SESSION['auth'] = TRUE;
+}
+
+function unauthenticate() {
+	session_start();
+	unset($_SESSION['auth']);
 }
 
 function generate_password($length = 32) {
