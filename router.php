@@ -16,6 +16,14 @@ function route($routes) {
 	}
 }
 
+function create_route($http_verb, $regex, $callback) {
+	return array(
+		0 => $http_verb,
+		1 => $regex,
+		2 => $callback
+	);
+}
+
 #$routes = array(
 #	array('GET', '/^\/$/', 'index'),
 #	array('GET', '/^\/hello\/(?<s>[0-9A-Za-z]++)$/', 'hello')
