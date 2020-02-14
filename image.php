@@ -12,15 +12,4 @@ function create_thumbnail($image) {
 	$crop_resize = "convert {$dir}/admin/{$image}_md -resize 197X150 -gravity north -crop 197X150+0+0 {$dir}/admin/{$filename_thumb}";
 	exec($crop_resize);
 }
-
-function convert_image2($image) {
-	$output = '';
-	file_put_contents($output, imagescale($image, 1280, 720));
-}
-
-function create_thumbnail2($image) {
-	$output = '';
-	file_put_contents($output, imagescale($image, 1280, 720));
-}
-
 ?>
