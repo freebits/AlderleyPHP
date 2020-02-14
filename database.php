@@ -1,6 +1,9 @@
 <?php
-function get_db() {
-  $dbh = new PDO("pgsql:dbname=test.com.au", 'dbuser');
+require_once('configuration.php');
+function get_database() {
+	$configuration = get_configuration();
+	$dbh = 
+		new PDO($configuration['DATABASE_URI'], $configuration['DATABASE_USER']);
   return $dbh;
 }
 ?>

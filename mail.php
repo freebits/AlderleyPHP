@@ -1,6 +1,9 @@
 <?php
+require_once('configuration.php');
+
 function contact_mail($name, $phone, $email, $postcode, $message) {
-	$to = 'freebits1@gmail.com';
+	$configuration = get_configuration();
+	$to = configuration['EMAIL_TO'];
 	$subject = 'Contact from: '. $name;
 	$body = 
 		'Name: '. $name.PHP_EOL.
@@ -9,7 +12,7 @@ function contact_mail($name, $phone, $email, $postcode, $message) {
 		'Postcode: '. $postcode.PHP_EOL.
 		'Message: '.PHP_EOL.$message.PHP_EOL;
 
-	$headers = 'From: noreply@test.com.au'; 
+	$headers = 'From: '.$configuration['MAIL_FROM']; 
 	mail($to, $subject, $body, $headers);
 }
 ?>
