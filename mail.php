@@ -6,7 +6,7 @@ function contact_mail($name, $phone, $email, $postcode, $message) {
 	$to = configuration['EMAIL_TO'];
 	$subject = 'Contact from: '. $name;
 	$body =
-	  'Domain: '.$configuration['DOMAIN'].PHP_EOL.
+	  'Domain Name: '.$configuration['DOMAIN_NAME'].PHP_EOL.
 		'Name: '.$name.PHP_EOL.
 		'Phone: '.$phone.PHP_EOL.
 		'Email: '.$email.PHP_EOL.
