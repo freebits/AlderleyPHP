@@ -25,15 +25,14 @@ function train($dataset, $keywords) {
 		
 		if($message_data[0] == "ham") {
 			array_push($dataset, array(strip_punctuation($message_data[1]), 0.0, 1.0));
-    }
-    elseif($message_data[0] == "spam") {
+        }
+        elseif($message_data[0] == "spam") {
 			array_push($dataset, array(strip_punctuation($message_data[1]), 1.0, 0.0));
-    }
-    else {
+        }
+        else {
 			echo "error";
-    }
-  }
-	
+        }
+    }	
 	fclose($training_file);		
 
 
@@ -47,22 +46,21 @@ function train($dataset, $keywords) {
 		
 		for($j=0; $j < count($training_words); $j++) {
 			for($k=0; $k < count($keywords); $k++) {
-				if($training_words[$j] === $keywords[$k][0]) {
-					
+				if($training_words[$j] === $keywords[$k][0]) {				
 					if($training_words[$j][1] > $training_words[$j][2]) {
 						$keywords[$k][1] += 1.0;
 					}
-          else {
-						$keywords[$k][2] += 1.0;
-          }
+                else {
+                    $keywords[$k][2] += 1.0;
+                }
 					$word_found = TRUE;
 				}
 			}
 			if(!$word_found) {
 				array_push($keywords, $training_words[$j]);
 			}	
+        }
     }
-  }
 }
 
 function strip_punctuation($message) {
@@ -93,13 +91,13 @@ function get_probability_of_word($word, $keywords) {
     // find the probability of spam or ham and
     // average(?) them
     if($amount_of_spam > 0.0 && $amount_of_ham > 0.0) {
-            $p_of_word = ($amount_of_spam / count($keywords)) * ($amount_of_ham / count($keywords));
+        $p_of_word = ($amount_of_spam / count($keywords)) * ($amount_of_ham / count($keywords));
     }
     elseif($amount_of_spam == 0.0) {
-            $p_of_word = 0.0;
+        $p_of_word = 0.0;
     }
     else {
-            $p_of_word = 1.0;
+        $p_of_word = 1.0;
     }
     return $p_of_word;
 }
@@ -136,7 +134,7 @@ function check_message($message, $dataset, $keywords) {
 		echo $status;
 	}
 	return $status;
-			print_r($keywords);
+	print_r($keywords);
 }
 
 $input = readline("Enter a message:");
