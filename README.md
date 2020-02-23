@@ -1,2 +1,2 @@
 # Time
-A web development framework for PHP.
+A minimal web development framework for PHP.

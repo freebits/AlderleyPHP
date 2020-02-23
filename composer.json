@@ -3,5 +3,10 @@
 	"description": "web framework",
 	"type": "library",
 	"readme": "README.md",
-	"license": "BSD-3-Clause"
+	"license": "BSD-2-Clause",
+
+	"require": {
+		"ext-pdo": "*",
+		"ext-readline": "*"
+	}
 }

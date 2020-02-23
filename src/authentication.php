@@ -11,7 +11,7 @@ function authenticate() {
 	$_SESSION['auth'] = TRUE;
 }
 
-function unauthenticate() {
+function deauthenticate() {
 	session_start();
 	unset($_SESSION['auth']);
 }

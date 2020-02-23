@@ -5,7 +5,7 @@ function get_configuration() {
 		'DATABASE_URI' => '',
 		'DATABASE_USER' => '',
 		'EMAIL_TO' => '',
-		'EMAIL_FROM' => ''
+		'EMAIL_FROM' => '',
 		'UPLOADS' => '');
 }
 ?>
