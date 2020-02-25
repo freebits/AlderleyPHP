@@ -16,14 +16,7 @@ function deauthenticate() {
 	unset($_SESSION['auth']);
 }
 
-function generate_password($password_length = 32) {
-
-	if(!is_int($password_length)) {
-		throw new Exception('Password length must be an integer');
-	}
-	elseif($password_length < 0) {
-		throw new Exception('Password length must be greater than 0');
-	}
+function generate_password($password_length) {
 
 	$keyspace = array(
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
