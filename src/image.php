@@ -1,17 +1,15 @@
 <?php
-
-function convert_image($image_in, $image_out) {
+function resize_image($image_in, $image_out, $cols, $rows) {
 	$image = new Imagick($image_in);
-	$image->adaptiveResizeImage(1280, 720, TRUE);
-	$image->writeImageFile($image_out);
+	$image->adaptiveResizeImage($cols, $rows, TRUE);
+	$image->writeImage($image_out);
 	$image->destroy();
-
 }
 
-function create_thumbnail($image_in, $image_out) {
+function thumbnail_image($image_in, $image_out, $cols, $rows) {
 	$image = new Imagick($image_in);
-	$image->thumbnailImage(197, 150, TRUE);
-	$image->writeImageFile($image_out);
+	$image->thumbnailImage($cols, $rows, TRUE);
+	$image->writeImage($image_out);
 	$image->destroy();
 }
 ?>
