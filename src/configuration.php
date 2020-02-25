@@ -1,11 +1,5 @@
 <?php
-function get_configuration() {
-	return array(
-		'DOMAIN_NAME' => '',
-		'DATABASE_URI' => '',
-		'DATABASE_USER' => '',
-		'EMAIL_TO' => '',
-		'EMAIL_FROM' => '',
-		'UPLOADS' => '');
+function get_configuration($cfg_file_path) {
+	return parse_ini_file($cfg_file_path);
 }
 ?>

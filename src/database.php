@@ -1,9 +1,5 @@
 <?php
-require_once('configuration.php');
-function get_database() {
-	$configuration = get_configuration();
-	$dbh = new PDO($configuration['DATABASE_URI'],
-		$configuration['DATABASE_USER']);
-  return $dbh;
+function get_database($db_uri, $db_user) {
+	return new PDO($db_uri, $db_user);
 }
 ?>
