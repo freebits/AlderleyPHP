@@ -7,6 +7,7 @@
 
 	"require": {
 		"ext-pdo": "*",
-		"ext-readline": "*"
+		"ext-readline": "*",
+		"ext-imagick": "*"
 	}
 }
