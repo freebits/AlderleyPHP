@@ -1,6 +1,6 @@
 {
-	"name": "freebits/time",
-	"description": "web framework",
+	"name": "freebits/alderley-php",
+	"description": "micro utlity library",
 	"type": "library",
 	"readme": "README.md",
 	"license": "BSD-2-Clause",
