@@ -121,7 +121,6 @@ class Alderley {
         return ($page - 1) * $limit;
     }
 
-
     public static function redirect(string $uri)
     {
         header('Location: '.$uri);
