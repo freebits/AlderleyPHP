@@ -1,7 +1,7 @@
 <?php
 class Alderley {
 
-    public static function authenticationRequired()
+    public static function checkAuth()
     {
         session_start();
         if (empty($_SESSION['auth'])) {
@@ -9,13 +9,13 @@ class Alderley {
         }
     }
 
-    public static function authenticate()
+    public static function logIn()
     {
         session_start();
         $_SESSION['auth'] = true;
     }
 
-    public static function deauthenticate()
+    public static function logOut()
     {
         session_start();
         unset($_SESSION['auth']);
@@ -45,19 +45,19 @@ class Alderley {
         return parse_ini_file($cfgFilePath);
     }
 
-    public static function newCsrfToken()
+    public static function newCSRFToken()
     {
         session_start();
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
 
-    public static function getCsrfToken()
+    public static function getCSRFToken()
     {
         session_start();
         return $_SESSION['csrf_token'];
     }
 
-    public static function CheckCsrfToken(string $token)
+    public static function checkCSRFToken(string $token)
     {
         session_start();
         return hash_equals($_SESSION['csrf_token'], $token);
@@ -125,7 +125,7 @@ class Alderley {
         header('Location: '.$uri);
     }
 
-    public static function xAccelRedirect(string $uri)
+    public static function redirectXAccel(string $uri)
     {
         header('X-Accel-Redirect: '.$uri);
     }
