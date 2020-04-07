@@ -1,6 +1,7 @@
 <?php
 
 class Alderley {
+    
     public static function authenticationRequired()
     {
         session_start();
@@ -9,20 +10,17 @@ class Alderley {
         }
     }
 
-
     public static function authenticate()
     {
         session_start();
         $_SESSION['auth'] = true;
     }
 
-
     public static function deauthenticate()
     {
         session_start();
         unset($_SESSION['auth']);
     }
-
 
     public static function generatePassword(int $passwordLength)
     {
@@ -43,12 +41,10 @@ class Alderley {
         return $password;
     }
 
-
     public static function getConfiguration(string $cfgFilePath)
     {
         return parse_ini_file($cfgFilePath);
     }
-
 
     public static function newCsrfToken()
     {
@@ -56,13 +52,11 @@ class Alderley {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
 
-
     public static function getCsrfToken()
     {
         session_start();
         return $_SESSION['csrf_token'];
     }
-
 
     public static function CheckCsrfToken(string $token)
     {
@@ -70,12 +64,10 @@ class Alderley {
         return hash_equals($_SESSION['csrf_token'], $token);
     }
 
-
     public static function getDatabase(string $dbUri, string $dbUser)
     {
         return new PDO($dbUri, $dbUser);
     }
-
 
     public static function resizeImage(string $imageIn, string $imageOut, int $cols, int $rows)
     {
@@ -85,7 +77,6 @@ class Alderley {
         $image->destroy();
     }
 
-
     public static function thumbnailImage(string $imageIn, string $imageOut, int $cols, int $rows)
     {
         $image = new Imagick($imageIn);
@@ -94,30 +85,25 @@ class Alderley {
         $image->destroy();
     }
 
-
     public static function sanitizeInput($i)
     {
         return htmlspecialchars(stripslashes(trim($i)));
     }
-
 
     public static function sanitizeString(string $s)
     {
         return filter_var(sanitizeInput($s), FILTER_SANITIZE_STRING);
     }
 
-
     public static function sanitizeInteger(int $i)
     {
         return filter_var(sanitizeInput($i), FILTER_SANITIZE_NUMBER_INT);
     }
 
-
     public static function sanitizeEmail(string $e)
     {
         return filter_var(sanitizeInput($e), FILTER_SANITIZE_EMAIL);
     }
-
 
     public static function contactMail(string $mailTo, string $mailFrom, string $subject, array $fields)
     {
@@ -130,7 +116,6 @@ class Alderley {
         mail($mailTo, $subject, $body, $headers);
     }
 
-
     public static function getPaginationOffset(int $page, int $limit = 9)
     {
         return ($page - 1) * $limit;
@@ -142,12 +127,10 @@ class Alderley {
         header('Location: '.$uri);
     }
 
-
     public static function xAccelRedirect(string $uri)
     {
         header('X-Accel-Redirect: '.$uri);
     }
-
 
     public static function createSlug(string $s)
     {
