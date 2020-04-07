@@ -1,7 +1,7 @@
 <?php
 
 class Alderley {
-    public static function authentication_required()
+    public static function authenticationRequired()
     {
         session_start();
         if (empty($_SESSION['auth'])) {
@@ -24,7 +24,7 @@ class Alderley {
     }
 
 
-    public static function generate_password(int $password_length)
+    public static function generatePassword(int $passwordLength)
     {
         $keyspace = array(
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -37,101 +37,101 @@ class Alderley {
             '@', '#', '$', '%', '^', '&', '*', '(', ')');
                     
         $password = '';
-        for ($i = 0; $i < $password_length; $i++) {
+        for ($i = 0; $i < $passwordLength; $i++) {
             $password .= $keyspace[random_int(0, count($keyspace) - 1)];
         }
         return $password;
     }
 
 
-    public static function get_configuration(string $cfg_file_path)
+    public static function getConfiguration(string $cfgFilePath)
     {
-        return parse_ini_file($cfg_file_path);
+        return parse_ini_file($cfgFilePath);
     }
 
 
-    public static function new_csrf_token()
+    public static function newCsrfToken()
     {
         session_start();
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
 
 
-    public static function get_csrf_token()
+    public static function getCsrfToken()
     {
         session_start();
         return $_SESSION['csrf_token'];
     }
 
 
-    public static function check_csrf_token(string $token)
+    public static function CheckCsrfToken(string $token)
     {
         session_start();
         return hash_equals($_SESSION['csrf_token'], $token);
     }
 
 
-    public static function get_database(string $db_uri, string $db_user)
+    public static function getDatabase(string $dbUri, string $dbUser)
     {
-        return new PDO($db_uri, $db_user);
+        return new PDO($dbUri, $dbUser);
     }
 
 
-    public static function resize_image(string $image_in, string $image_out, int $cols, int $rows)
+    public static function resizeImage(string $imageIn, string $imageOut, int $cols, int $rows)
     {
-        $image = new Imagick($image_in);
+        $image = new Imagick($imageIn);
         $image->adaptiveResizeImage($cols, $rows, true);
-        $image->writeImage($image_out);
+        $image->writeImage($imageOut);
         $image->destroy();
     }
 
 
-    public static function thumbnail_image(string $image_in, string $image_out, int $cols, int $rows)
+    public static function thumbnailImage(string $imageIn, string $imageOut, int $cols, int $rows)
     {
-        $image = new Imagick($image_in);
+        $image = new Imagick($imageIn);
         $image->thumbnailImage($cols, $rows, true);
-        $image->writeImage($image_out);
+        $image->writeImage($imageOut);
         $image->destroy();
     }
 
 
-    public static function sanitize_input(string $i)
+    public static function sanitizeInput($i)
     {
         return htmlspecialchars(stripslashes(trim($i)));
     }
 
 
-    public static function sanitize_string(string $s)
+    public static function sanitizeString(string $s)
     {
-        return filter_var(sanitize_input($s), FILTER_SANITIZE_STRING);
+        return filter_var(sanitizeInput($s), FILTER_SANITIZE_STRING);
     }
 
 
-    public static function sanitize_integer(int $i)
+    public static function sanitizeInteger(int $i)
     {
-        return filter_var(sanitize_input($i), FILTER_SANITIZE_NUMBER_INT);
+        return filter_var(sanitizeInput($i), FILTER_SANITIZE_NUMBER_INT);
     }
 
 
-    public static function sanitize_email(string $e)
+    public static function sanitizeEmail(string $e)
     {
-        return filter_var(sanitize_input($e), FILTER_SANITIZE_EMAIL);
+        return filter_var(sanitizeInput($e), FILTER_SANITIZE_EMAIL);
     }
 
 
-    public static function contact_mail(string $mail_to, string $mail_from, string $subject, array $fields)
+    public static function contactMail(string $mailTo, string $mailFrom, string $subject, array $fields)
     {
         $body = '';
         foreach ($fields as $field) {
             list($label, $value) = $field;
             $body .= $label.': '.$value.PHP_EOL;
         }
-        $headers = 'From: '.$mail_from;
-        mail($mail_to, $subject, $body, $headers);
+        $headers = 'From: '.$mailFrom;
+        mail($mailTo, $subject, $body, $headers);
     }
 
 
-    public static function get_pagination_offset(int $page, int $limit = 9)
+    public static function getPaginationOffset(int $page, int $limit = 9)
     {
         return ($page - 1) * $limit;
     }
@@ -143,13 +143,13 @@ class Alderley {
     }
 
 
-    public static function x_accel_redirect(string $uri)
+    public static function xAccelRedirect(string $uri)
     {
         header('X-Accel-Redirect: '.$uri);
     }
 
 
-    public static function create_slug(string $s)
+    public static function createSlug(string $s)
     {
         return str_replace(" ", "-",
             strtolower(preg_replace("/[^0-9a-zA-Z ]/", "", $s)));
