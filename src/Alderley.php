@@ -1,7 +1,6 @@
 <?php
-
 class Alderley {
-    
+
     public static function authenticationRequired()
     {
         session_start();
