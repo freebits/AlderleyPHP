@@ -6,27 +6,22 @@ class AlderleyRouter {
 
     public function route()
     {
-        $requestUri = $_SERVER["REQUEST_URI"];
-        $requestMethod = $_SERVER["REQUEST_METHOD"];
+        $uri = $_SERVER["REQUEST_URI"];
+        $method = $_SERVER["REQUEST_METHOD"];
         
         foreach ($this->routes as $route) {
-            list($httpVerb, $regex, $callback) = $route;
-            
-            if ($method === $requestMethod &&
-                preg_match($regex, $requestUri, $params) === 1) {
-                call_user_func($callback, $params);
-                break;
+            if ($route->method === $method) {
+                if(preg_match($route->regex, $uri, $params) === 1) {
+                    call_user_func($route->callback, $params);
+                    break;
+                }
             }
         }
     }
 
-    public function addRoute(string $httpVerb, string $regex, string $callback)
+    public function addRoute(string $method, string $regex, callable $callback)
     {
-        $route = array(
-            0 => $httpVerb,
-            1 => $regex,
-            2 => $callback
-        );
+        $route = AlderleyRoute($method, $regex, $callback);
         array_push($routes, $route);
     }
 }
