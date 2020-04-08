@@ -1,51 +1,36 @@
 <?php
-// message, spam
-$dataset = array(
-    array('good message', 0.0, 1.0),
-    array('good message', 0.0, 1.0),
-    array('good message', 0.0, 1.0),
-    array('spam message', 1.0, 0.0),
-    array('spam message', 1.0, 0.0)
-);
-
-// word, occured as ham, occured as spam,
-$keywords = array(
-    array('good', 1.0, 0.0),
-    array('spam', 0.0, 1.0),
-    array('message', 1.0, 1.0)
-);
-
-function train($dataset, $keywords)
-{
+function make_dataset() {
     $training_words_data = [];
-    $training_file = fopen("train", "r") or die("Unable to open file!");
+    $training_file = fopen("smsspam2", "r") or die("Unable to open file!");
     echo "Opening training file..." . PHP_EOL;
-
+    $dataset = array();
     while ($line = fgets($training_file)) {
-        $message_data = explode(">>> ", $line);
-        
+        $message_data = explode(">>>", $line);
         if ($message_data[0] == "ham") {
-            array_push($dataset, array(strip_punctuation($message_data[1]), 0.0, 1.0));
+            array_push($dataset, array(strip_punctuation($message_data[1]), 1.0, .0));
         } elseif ($message_data[0] == "spam") {
-            array_push($dataset, array(strip_punctuation($message_data[1]), 1.0, 0.0));
+            array_push($dataset, array(strip_punctuation($message_data[1]), 0.0, 1.0));
         } else {
             echo "error";
         }
     }
     fclose($training_file);
 
+    return $dataset;
+}
 
+function make_keywords($dataset) {
+    $keywords = array();
     for ($i=0; $i < count($dataset); $i++) {
         $tw = explode(" ", $dataset[$i][0]);
-        $training_words = [];
+        $training_words = array();
         foreach ($tw as $w) {
-            array_push($tw, array($w, $dataset[$i][1], $dataset[$i][2]));
+            array_push($training_words, array($w, $dataset[$i][1], $dataset[$i][2]));
         }
         $word_found = false;
-        
         for ($j=0; $j < count($training_words); $j++) {
             for ($k=0; $k < count($keywords); $k++) {
-                if ($training_words[$j] === $keywords[$k][0]) {
+                if ($training_words[$j][0] === $keywords[$k][0]) {
                     if ($training_words[$j][1] > $training_words[$j][2]) {
                         $keywords[$k][1] += 1.0;
                     } else {
@@ -59,13 +44,31 @@ function train($dataset, $keywords)
             }
         }
     }
+    return $keywords;
 }
+
+function condense_keywords($keywords) {
+    $tmp_keywords = $keywords;
+    for($i = 0; $i < count($tmp_keywords); $i++) {
+        for($j = 0; $j < count($keywords); $j++) {
+            if($keywords[$i][0] == $tmp_keywords[$j][0]) {
+                $tmp_keywords[$i][1] += $keywords[$j][1];
+                $tmp_keywords[$i][2] += $keywords[$j][2];
+            }
+            unset($tmp_keywords[$j]);
+        }
+    }
+
+    $keywords = $tmp_keywords;
+    return $keywords;
+}
+
 
 function strip_punctuation($message)
 {
     $message = strtolower($message);
     $punctuation = array(',', '?', '.', '/', '!');
-    $message = str_replace($punctuation, '', $message);
+    $message = trim(str_replace($punctuation, '', $message));
     return $message;
 }
 
@@ -74,16 +77,15 @@ function get_probability_of_word($word, $keywords)
     $amount_of_ham = 0.0;
     $amount_of_spam = 0.0;
     $word_found = false;
-
     for ($i=0; $i < count($keywords); $i++) {
         if (strcmp($word, $keywords[$i][0]) == 0) {
             $amount_of_ham = $keywords[$i][1];
             $amount_of_spam = $keywords[$i][2];
-            echo "Word found." . PHP_EOL;
+            echo $word. " - Word found." . PHP_EOL;
             $word_found = true;
         }
         if ($i == (count($keywords)-1) && $word_found == false) {
-            echo "Word not found. Added to keywords." . PHP_EOL;
+            echo $word. "- Word not found. Added to keywords." . PHP_EOL;
             array_push($keywords[0], $word, 0.0, 0.0);
         }
     }
@@ -108,7 +110,6 @@ function check_message($message, $dataset, $keywords)
     $status = "";
     $p_of_spam = 0.0;
     $word_chances = 0.0;
-
     // get the probabilities of words
     // from training data
     foreach ($words_data as $word => $word_probability) {
@@ -134,7 +135,4 @@ function check_message($message, $dataset, $keywords)
     return $status;
     print_r($keywords);
 }
-
-$input = readline("Enter a message:");
-// train($dataset, $keywords);
-check_message($input, $dataset, $keywords);
+?>
