@@ -64,7 +64,7 @@ final class AlderleyTest extends TestCase
         $input_string = "<html> tags and #$&^%-=/\ symbols.";
         $sanitized_input = Alderley::sanitizeInput($input_string);
         $control_sanitized_input = htmlspecialchars(stripslashes(trim($input_string)));
-        $this->assertEquals($sanitized_input_valid, $sanitized_input);
+        $this->assertEquals($control_sanitized_input, $sanitized_input);
     }
 } 
 
