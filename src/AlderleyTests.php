@@ -8,7 +8,7 @@ final class AlderleyTest extends TestCase
     {
         $password_length = 32;
         $password = Alderley::generatePassword($password_length);
-        $this->assertEquals($password_length, strlen($password));
+        $this->assertSame($password_length, strlen($password));
     }
 
     public function testReadConfiguration()
@@ -20,7 +20,7 @@ final class AlderleyTest extends TestCase
     public function testGetConfigurationKey()
     {
         $configuration = Alderley::getConfiguration('test.ini');
-        $this->assertEquals('test_value', $configuration['test_key']); 
+        $this->assertSame('test_value', $configuration['test_key']); 
     }
 
     public function testGetDatabase() 
@@ -39,7 +39,7 @@ final class AlderleyTest extends TestCase
     {
         $thumbnailImage = Alderley::thumbnailImage('./src/test.jpg', 'test_thumbnail', 20, 20);
         $imageSize = getimagesize('test_thumbnail');
-        $this->assertEquals(20, $imageSize[0]);
+        $this->assertSame(20, $imageSize[0]);
     }
 
     public function sanitize_input()
@@ -47,7 +47,7 @@ final class AlderleyTest extends TestCase
         $input_string = "<html> tags and #$&^%-=/\ symbols.";
         $sanitized_input = Alderley::sanitizeInput($input_string);
         $control_sanitized_input = htmlspecialchars(stripslashes(trim($input_string)));
-        $this->assertEquals($control_sanitized_input, $sanitized_input);
+        $this->assertSame($control_sanitized_input, $sanitized_input);
     }
 } 
 
