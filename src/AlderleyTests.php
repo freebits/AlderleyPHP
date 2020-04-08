@@ -1,6 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 include_once("Alderley.php");
 use PHPUnit\Framework\TestCase;
+
 final class AlderleyTest extends TestCase
 {
     public function testGeneratePassword() 
