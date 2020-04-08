@@ -1,5 +1,5 @@
 <?php
-class Alderley {
+class AlderleyUtility {
 
     public static function checkAuth()
     {
