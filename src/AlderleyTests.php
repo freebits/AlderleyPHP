@@ -2,7 +2,7 @@
 include_once("Alderley.php");
 use PHPUnit\Framework\TestCase;
 
-final class AlderleyTest extends TestCase
+class AlderleyTest extends TestCase
 {
     public function testGeneratePassword() 
     {
