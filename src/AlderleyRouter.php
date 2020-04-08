@@ -21,7 +21,6 @@ class AlderleyRouter {
 
     public function addRoute(string $method, string $regex, callable $callback): void
     {
-        $route = AlderleyRoute($method, $regex, $callback);
-        array_push($routes, $route);
+        array_push($routes, AlderleyRoute($method, $regex, $callback));
     }
 }
