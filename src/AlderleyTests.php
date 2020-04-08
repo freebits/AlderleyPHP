@@ -3,63 +3,45 @@ include_once("Alderley.php");
 use PHPUnit\Framework\TestCase;
 final class AlderleyTest extends TestCase
 {
-/*    public function testCheckAuth(): void
-    {
-        Alderley::checkAuth();
-        $this->assertEquals(401, http_response_code());
-    }
-
-    public function testLogIn(): void
-    {
-        Alderley::logIn();
-        $this->assertTrue($_SESSION['auth']);
-    }
-
-    public function testLogOut(): void
-    {
-        Alderley::logOut();
-        $this->assertTrue(empty($_SESSION['auth']));
-    }
-*/
-    public function testGeneratePassword(): void 
+    public function testGeneratePassword() 
     {
         $password_length = 32;
         $password = Alderley::generatePassword($password_length);
         $this->assertEquals($password_length, strlen($password));
     }
 
-    public function testReadConfiguration(): void
+    public function testReadConfiguration()
     {
         $configuration = Alderley::getConfiguration('test.ini');
         $this->assertTrue(!empty($configuration)); 
     }
 
-    public function testGetConfigurationKey(): void
+    public function testGetConfigurationKey()
     {
         $configuration = Alderley::getConfiguration('test.ini');
         $this->assertEquals('test_value', $configuration['test_key']); 
     }
 
-    public function testGetDatabase(): void 
+    public function testGetDatabase() 
     {
         $dbh = Alderley::getDatabase('pgsql:dbname=alderley-tests', 'user');
         $this->assertTrue(!empty($dbh));
         $dbh = NULL;
     }
 
-    public function testResizeImage(): void {
+    public function testResizeImage() {
         $resized_image = Alderley::resizeimage('./src/test.jpg', 'test_resized', 50, 20);
         $this->assertTrue(file_exists('test_resized'));
     }
 
-    public function testThumbnailImage(): void
+    public function testThumbnailImage()
     {
         $thumbnailImage = Alderley::thumbnailImage('./src/test.jpg', 'test_thumbnail', 20, 20);
         $imageSize = getimagesize('test_thumbnail');
         $this->assertEquals(20, $imageSize[0]);
     }
 
-    public function sanitize_input(): void
+    public function sanitize_input()
     {
         $input_string = "<html> tags and #$&^%-=/\ symbols.";
         $sanitized_input = Alderley::sanitizeInput($input_string);
