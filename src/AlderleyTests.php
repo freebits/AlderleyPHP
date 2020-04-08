@@ -1,5 +1,5 @@
 <?php
-include_once("Alderley.php");
+require_once("Alderley.php");
 use PHPUnit\Framework\TestCase;
 
 class AlderleyTest extends TestCase
