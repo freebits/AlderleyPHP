@@ -1,5 +1,4 @@
 <?php
-
 class AlderleyRouter {
 
     private $routes = array();
