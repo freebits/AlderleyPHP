@@ -4,7 +4,7 @@ class AlderleyRouter {
 
     private $routes = array();
 
-    public function route()
+    public function route(): void
     {
         $uri = $_SERVER["REQUEST_URI"];
         $method = $_SERVER["REQUEST_METHOD"];
@@ -19,7 +19,7 @@ class AlderleyRouter {
         }
     }
 
-    public function addRoute(string $method, string $regex, callable $callback)
+    public function addRoute(string $method, string $regex, callable $callback): void
     {
         $route = AlderleyRoute($method, $regex, $callback);
         array_push($routes, $route);
