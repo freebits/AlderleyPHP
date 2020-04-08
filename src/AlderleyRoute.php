@@ -5,8 +5,8 @@ class AlderleyRoute {
     public string $regex;
     public callable $callback; 
 
-    function __construct($httpVerb, $regex, $callback) {
-        $this->httpVerb = $httpVerb;
+    function __construct($method, $regex, $callback) {
+        $this->method = $method;
         $this->regex = $regex;
         $this->callback = $callback;
     }
