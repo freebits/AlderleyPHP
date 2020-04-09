@@ -4,7 +4,8 @@ namespace AlderleyPHP;
 
 class AlderleySpamFilter {
 
-    public static function get_probability_of_word(string $word, array $keywords) {
+    public static function get_probability_of_word(string $word, array $keywords)
+    {
         $ham_count = 0.0;
         $spam_count = 0.0;
         $word_found = false;
@@ -29,7 +30,8 @@ class AlderleySpamFilter {
         return array($p_of_word, $word_found);
     }
 
-    public static function check_message(string $message, array $keywords, float $threshold) {
+    public static function check_message(string $message, array $keywords, float $threshold)
+    {
         $word_list = explode(" ", $message);
         $words_data = array_fill_keys($word_list, 0.0);
         $status = "";
@@ -45,14 +47,14 @@ class AlderleySpamFilter {
         foreach ($words_data as $word => $word_probability) {
             $word_chances += $words_data[$word];
             $p_of_spam = $word_chances / count($words_data);
-            if($p_of_word[1] == false) {
+            if ($p_of_word[1] == false) {
                 array_push($not_found, $word);
             }
         }
 
         if ($p_of_spam > $threshold) {
             $status = 1;
-            for($i=0; $i < count($not_found); $i++) {
+            for ($i=0; $i < count($not_found); $i++) {
                 update_keyword($word, $keywords, $status);
             }
         } else {
@@ -63,8 +65,9 @@ class AlderleySpamFilter {
         return $status;
     }
 
-    public static function update_keyword(string $keyword, array $keywords, int $status) {
-        for($j=0; $j < count($keywords); $j++) {
+    public static function update_keyword(string $keyword, array $keywords, int $status)
+    {
+        for ($j=0; $j < count($keywords); $j++) {
             if (strcmp($keyword, $keywords[$j][0]) == 0) {
                 if ($status == 1) {
                     $keywords[$j][1] += 1;
@@ -75,4 +78,3 @@ class AlderleySpamFilter {
         }
     }
 }
-?>

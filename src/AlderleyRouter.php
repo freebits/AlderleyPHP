@@ -3,7 +3,6 @@ declare(strict_types=1);
 namespace AlderleyPHP;
 
 class AlderleyRouter {
-
     private $routes = array();
 
     public function route(): void
@@ -11,9 +10,9 @@ class AlderleyRouter {
         $uri = $_SERVER["REQUEST_URI"];
         $method = $_SERVER["REQUEST_METHOD"];
         
-        foreach($this->routes as $route) {
-            if($route->method === $method) {
-                if(preg_match($route->regex, $uri, $params) === 1) {
+        foreach ($this->routes as $route) {
+            if ($route->method === $method) {
+                if (preg_match($route->regex, $uri, $params) === 1) {
                     call_user_func($route->callback, $params);
                     return;
                 }

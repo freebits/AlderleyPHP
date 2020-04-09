@@ -2,12 +2,14 @@
 declare(strict_types=1);
 namespace AlderleyPHP;
 
-class AlderleyRoute {
+class AlderleyRoute
+{
     public string $method;
     public string $regex;
-    public callable $callback; 
+    public callable $callback;
 
-    function __construct($method, $regex, $callback) {
+    function __construct($method, $regex, $callback)
+    {
         $this->method = $method;
         $this->regex = $regex;
         $this->callback = $callback;

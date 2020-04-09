@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class AlderleyTest extends TestCase
 {
-    public function testGeneratePassword() 
+    public function testGeneratePassword()
     {
         $password_length = 32;
         $password = AlderleyUtility::generatePassword($password_length);
@@ -14,23 +14,24 @@ class AlderleyTest extends TestCase
     public function testReadConfiguration()
     {
         $configuration = AlderleyUtility::getConfiguration('test.ini');
-        $this->assertTrue(!empty($configuration)); 
+        $this->assertTrue(!empty($configuration));
     }
 
     public function testGetConfigurationKey()
     {
         $configuration = AlderleyUtility::getConfiguration('test.ini');
-        $this->assertSame('test_value', $configuration['test_key']); 
+        $this->assertSame('test_value', $configuration['test_key']);
     }
 
-    public function testGetDatabase() 
+    public function testGetDatabase()
     {
         $dbh = AlderleyUtility::getDatabase('pgsql:dbname=alderley-tests', 'user');
         $this->assertTrue(!empty($dbh));
-        $dbh = NULL;
+        $dbh = null;
     }
 
-    public function testResizeImage() {
+    public function testResizeImage()
+    {
         $resized_image = AlderleyUtility::resizeimage('test.jpg', 'test_resized', 50, 20);
         $this->assertTrue(file_exists('test_resized'));
     }
@@ -49,6 +50,4 @@ class AlderleyTest extends TestCase
         $control_sanitized_input = htmlspecialchars(stripslashes(trim($input_string)));
         $this->assertSame($control_sanitized_input, $sanitized_input);
     }
-} 
-
-?>
+}
