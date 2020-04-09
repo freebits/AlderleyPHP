@@ -6,6 +6,7 @@ class AlderleyUtility {
         session_start();
         if (empty($_SESSION['auth'])) {
             http_response_code(401);
+            return;
         }
     }
 
@@ -13,12 +14,14 @@ class AlderleyUtility {
     {
         session_start();
         $_SESSION['auth'] = true;
+        return;
     }
 
     public static function logOut(): void
     {
         session_start();
         unset($_SESSION['auth']);
+        return;
     }
 
     public static function generatePassword(int $passwordLength): string
@@ -49,6 +52,7 @@ class AlderleyUtility {
     {
         session_start();
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        return;
     }
 
     public static function getCSRFToken(): string
@@ -74,6 +78,7 @@ class AlderleyUtility {
         $image->adaptiveResizeImage($cols, $rows, true);
         $image->writeImage($imageOut);
         $image->destroy();
+        return;
     }
 
     public static function thumbnailImage(string $imageIn, string $imageOut, int $cols, int $rows): void
@@ -82,6 +87,7 @@ class AlderleyUtility {
         $image->thumbnailImage($cols, $rows, true);
         $image->writeImage($imageOut);
         $image->destroy();
+        return;
     }
 
     public static function sanitizeInput($i)
@@ -113,6 +119,7 @@ class AlderleyUtility {
         }
         $headers = 'From: '.$mailFrom;
         mail($mailTo, $subject, $body, $headers);
+        return;
     }
 
     public static function getPaginationOffset(int $page, int $limit = 9): int
@@ -123,11 +130,13 @@ class AlderleyUtility {
     public static function redirect(string $uri): void
     {
         header('Location: '.$uri);
+        return;
     }
 
     public static function redirectXAccel(string $uri): void
     {
         header('X-Accel-Redirect: '.$uri);
+        return;
     }
 
     public static function createSlug(string $s): string
