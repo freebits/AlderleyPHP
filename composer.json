@@ -18,7 +18,7 @@
 
     "autoload": {
         "psr-4": {
-            "Alderley\\": "src/"
+            "AlderleyPHP\\": "src/"
         }
     }
 }

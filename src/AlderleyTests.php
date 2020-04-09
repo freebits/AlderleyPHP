@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace AlderleyPHP;
 
-require_once("AlderleyUtility.php");
+use AlderleyPHP\AlderleyUtility; 
 use PHPUnit\Framework\TestCase;
 
 class AlderleyTest extends TestCase
@@ -10,38 +10,38 @@ class AlderleyTest extends TestCase
     public function testGeneratePassword()
     {
         $passwordLength = 32;
-        $password = \AlderleyPHP\AlderleyUtility::generatePassword($passwordLength);
+        $password = AlderleyUtility::generatePassword($passwordLength);
         $this->assertSame($passwordLength, strlen($password));
     }
 
     public function testReadConfiguration()
     {
-        $configuration = \AlderleyPHP\AlderleyUtility::getConfiguration('test.ini');
+        $configuration = AlderleyUtility::getConfiguration('test.ini');
         $this->assertTrue(!empty($configuration));
     }
 
     public function testGetConfigurationKey()
     {
-        $configuration = \AlderleyPHP\AlderleyUtility::getConfiguration('test.ini');
+        $configuration = AlderleyUtility::getConfiguration('test.ini');
         $this->assertSame('test_value', $configuration['test_key']);
     }
 
     public function testGetDatabase()
     {
-        $dbh = \AlderleyPHP\AlderleyUtility::getDatabase('pgsql:dbname=alderley-tests', 'user');
+        $dbh = AlderleyUtility::getDatabase('pgsql:dbname=alderley-tests', 'user');
         $this->assertTrue(!empty($dbh));
         $dbh = null;
     }
 
     public function testResizeImage()
     {
-        $resizedImage = \AlderleyPHP\AlderleyUtility::resizeimage('test.jpg', 'test_resized', 50, 20);
+        $resizedImage = AlderleyUtility::resizeimage('test.jpg', 'test_resized', 50, 20);
         $this->assertTrue(file_exists('test_resized'));
     }
 
     public function testThumbnailImage()
     {
-        $thumbnailImage = \AlderleyPHP\AlderleyUtility::thumbnailImage('test.jpg', 'test_thumbnail', 20, 20);
+        $thumbnailImage = AlderleyUtility::thumbnailImage('test.jpg', 'test_thumbnail', 20, 20);
         $imageSize = getimagesize('test_thumbnail');
         $this->assertSame(20, $imageSize[0]);
     }
@@ -49,7 +49,7 @@ class AlderleyTest extends TestCase
     public function testSanitizeInput()
     {
         $input_string = "<html> tags and #$&^%-=/\ symbols.";
-        $sanitized_input = \AlderleyPHP\AlderleyUtility::sanitizeInput($input_string);
+        $sanitized_input = AlderleyUtility::sanitizeInput($input_string);
         $control_sanitized_input = htmlspecialchars(stripslashes(trim($input_string)));
         $this->assertSame($control_sanitized_input, $sanitized_input);
     }
