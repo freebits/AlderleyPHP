@@ -4,7 +4,6 @@ namespace AlderleyPHP;
 
 class AlderleySpamFilter
 {
-
     public static function getProbabilityOfWord(string $word, array $keywords): array
     {
         $hamCount = 0.0;
