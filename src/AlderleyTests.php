@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+namespace AlderleyPHP;
+
 require_once("AlderleyUtility.php");
 use PHPUnit\Framework\TestCase;
 
