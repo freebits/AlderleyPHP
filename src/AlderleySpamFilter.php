@@ -7,55 +7,55 @@ class AlderleySpamFilter
 
     public static function getProbabilityOfWord(string $word, array $keywords)
     {
-        $ham_count = 0.0;
-        $spam_count = 0.0;
-        $word_found = false;
+        $hamCount = 0.0;
+        $spamCount = 0.0;
+        $wordFound = false;
         for ($i=0; $i < count($keywords); $i++) {
             if (strcmp($word, $keywords[$i][0]) == 0) {
-                $ham_count = $keywords[$i][1];
-                $spam_count = $keywords[$i][2];
-                $word_found = true;
+                $hamCount = $keywords[$i][1];
+                $spamCount = $keywords[$i][2];
+                $wordFound = true;
             }
-            if ($i == (count($keywords)-1) && $word_found == false) {
+            if ($i == (count($keywords)-1) && $wordFound == false) {
                 array_push($keywords[0], $word, 0.0, 0.0);
             }
         }
 
-        if ($spam_count > 0.0 && $ham_count > 0.0) {
-            $p_of_word = ($spam_count / count($keywords)) * ($ham_count / count($keywords));
-        } elseif ($spam_count == 0.0) {
-            $p_of_word = 0.0;
+        if ($spamCount > 0.0 && $hamCount > 0.0) {
+            $pOfWord = ($spamCount / count($keywords)) * ($hamCount / count($keywords));
+        } elseif ($spamCount == 0.0) {
+            $pOfWord = 0.0;
         } else {
-            $p_of_word = 1.0;
+            $pOfWord = 1.0;
         }
-        return array($p_of_word, $word_found);
+        return array($pOfWord, $wordFound);
     }
 
     public static function checkMessage(string $message, array $keywords, float $threshold)
     {
-        $word_list = explode(" ", $message);
-        $words_data = array_fill_keys($word_list, 0.0);
+        $wordList = explode(" ", $message);
+        $wordData = array_fill_keys($wordList, 0.0);
         $status = "";
-        $p_of_spam = 0.0;
-        $word_chances = 0.0;
-        $not_found = array();
+        $pOfSpam = 0.0;
+        $wordChances = 0.0;
+        $notFound = array();
 
-        foreach ($words_data as $word => $word_probability) {
-            $p_of_word = getProbabilityOfWord($word, $keywords);
-            $words_data[$word] = $p_of_word[0];
+        foreach ($wordData as $word => $wordProbability) {
+            $pOfWord = getProbabilityOfWord($word, $keywords);
+            $wordData[$word] = $pOfWord[0];
         }
 
-        foreach ($words_data as $word => $word_probability) {
-            $word_chances += $words_data[$word];
-            $p_of_spam = $word_chances / count($words_data);
-            if ($p_of_word[1] == false) {
-                array_push($not_found, $word);
+        foreach ($wordData as $word => $wordProbability) {
+            $wordChances += $wordData[$word];
+            $pOfSpam = $wordChances / count($wordData);
+            if ($pOfWord[1] == false) {
+                array_push($notFound, $word);
             }
         }
 
-        if ($p_of_spam > $threshold) {
+        if ($pOfSpam > $threshold) {
             $status = 1;
-            for ($i=0; $i < count($not_found); $i++) {
+            for ($i=0; $i < count($notFound); $i++) {
                 updateKeyword($word, $keywords, $status);
             }
         } else {
