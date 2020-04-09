@@ -8,7 +8,7 @@ class AlderleyRoute
     public string $regex;
     public callable $callback;
 
-    function __construct($method, $regex, $callback)
+    public function __construct($method, $regex, $callback)
     {
         $this->method = $method;
         $this->regex = $regex;
