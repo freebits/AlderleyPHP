@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace AlderleyPHP;
 
-use AlderleyPHP\AlderleyUtility; 
+use AlderleyPHP\AlderleyUtility;
 use PHPUnit\Framework\TestCase;
 
 class AlderleyTest extends TestCase
