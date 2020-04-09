@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+namespace Alderley;
+
 class AlderleyUtility {
 
     public static function checkAuth(): void

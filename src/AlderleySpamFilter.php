@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+namespace Alderley;
+
 class AlderleySpamFilter {
 
     public static function get_probability_of_word(string $word, array $keywords) {
