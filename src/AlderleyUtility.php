@@ -72,12 +72,12 @@ class AlderleyUtility
 
     public static function getDatabase(string $dbUri, string $dbUser)
     {
-        return new PDO($dbUri, $dbUser);
+        return new \PDO($dbUri, $dbUser);
     }
 
     public static function resizeImage(string $imageIn, string $imageOut, int $cols, int $rows): void
     {
-        $image = new Imagick($imageIn);
+        $image = new \Imagick($imageIn);
         $image->adaptiveResizeImage($cols, $rows, true);
         $image->writeImage($imageOut);
         $image->destroy();
@@ -86,7 +86,7 @@ class AlderleyUtility
 
     public static function thumbnailImage(string $imageIn, string $imageOut, int $cols, int $rows): void
     {
-        $image = new Imagick($imageIn);
+        $image = new \Imagick($imageIn);
         $image->thumbnailImage($cols, $rows, true);
         $image->writeImage($imageOut);
         $image->destroy();
