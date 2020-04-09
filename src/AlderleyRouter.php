@@ -12,7 +12,7 @@ class AlderleyRouter {
             if($route->method === $method) {
                 if(preg_match($route->regex, $uri, $params) === 1) {
                     call_user_func($route->callback, $params);
-                    break;
+                    return;
                 }
             }
         }
@@ -21,5 +21,6 @@ class AlderleyRouter {
     public function addRoute(string $method, string $regex, callable $callback): void
     {
         array_push($routes, AlderleyRoute($method, $regex, $callback));
+        return;
     }
 }
