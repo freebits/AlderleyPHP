@@ -2,7 +2,8 @@
 declare(strict_types=1);
 namespace AlderleyPHP;
 
-class AlderleyRouter {
+class AlderleyRouter
+{
     private $routes = array();
 
     public function route(): void

@@ -2,7 +2,8 @@
 declare(strict_types=1);
 namespace AlderleyPHP;
 
-class AlderleySpamFilter {
+class AlderleySpamFilter
+{
 
     public static function get_probability_of_word(string $word, array $keywords)
     {

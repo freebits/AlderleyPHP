@@ -2,7 +2,8 @@
 declare(strict_types=1);
 namespace AlderleyPHP;
 
-class AlderleyUtility {
+class AlderleyUtility
+{
     public static function checkAuth(): void
     {
         session_start();
