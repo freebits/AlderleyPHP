@@ -1,5 +1,6 @@
 <?php
-class AlderleyUtility {
+class AlderleyUtility
+{
 
     public static function checkAuth(): void
     {
@@ -141,7 +142,10 @@ class AlderleyUtility {
 
     public static function createSlug(string $s): string
     {
-        return str_replace(" ", "-",
-            strtolower(preg_replace("/[^0-9a-zA-Z ]/", "", $s)));
+        return str_replace(
+            " ",
+            "-",
+            strtolower(preg_replace("/[^0-9a-zA-Z ]/", "", $s))
+        );
     }
 }
