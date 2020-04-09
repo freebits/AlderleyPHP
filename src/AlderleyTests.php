@@ -6,9 +6,9 @@ class AlderleyTest extends TestCase
 {
     public function testGeneratePassword()
     {
-        $password_length = 32;
-        $password = AlderleyUtility::generatePassword($password_length);
-        $this->assertSame($password_length, strlen($password));
+        $passwordLength = 32;
+        $password = AlderleyUtility::generatePassword($passwordLength);
+        $this->assertSame($passwordLength, strlen($password));
     }
 
     public function testReadConfiguration()
@@ -32,7 +32,7 @@ class AlderleyTest extends TestCase
 
     public function testResizeImage()
     {
-        $resized_image = AlderleyUtility::resizeimage('test.jpg', 'test_resized', 50, 20);
+        $resizedImage = AlderleyUtility::resizeimage('test.jpg', 'test_resized', 50, 20);
         $this->assertTrue(file_exists('test_resized'));
     }
 
@@ -43,7 +43,7 @@ class AlderleyTest extends TestCase
         $this->assertSame(20, $imageSize[0]);
     }
 
-    public function sanitize_input()
+    public function testSanitizeInput()
     {
         $input_string = "<html> tags and #$&^%-=/\ symbols.";
         $sanitized_input = AlderleyUtility::sanitizeInput($input_string);
