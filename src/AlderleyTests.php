@@ -35,8 +35,9 @@ class AlderleyTest extends TestCase
 
     public function testResizeImage()
     {
-        $resizedImage = AlderleyUtility::resizeimage('test.jpg', 'test_resized', 50, 20);
-        $this->assertTrue(file_exists('test_resized'));
+        $resizedImage = AlderleyUtility::resizeImage('test.jpg', 'test_resized', 20, 50);
+        $imageSize = getimagesize('test_resized');
+        $this->assertSame(20, $imageSize[0]);
     }
 
     public function testThumbnailImage()
@@ -87,7 +88,7 @@ class AlderleyTest extends TestCase
 
     public function testCreateSlug()
     {
-        $input = 'This@@!#!@# is?$/ an< example !slug';
+        $input = 'This#@!#$%^& i*()s?$/ an< example !slug';
         $slug = AlderleyUtility::createSlug($input);
         $this->assertSame('this-is-an-example-slug', $slug);
     }
