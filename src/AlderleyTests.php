@@ -48,9 +48,47 @@ class AlderleyTest extends TestCase
 
     public function testSanitizeInput()
     {
-        $input_string = "<html> tags and #$&^%-=/\ symbols.";
-        $sanitized_input = AlderleyUtility::sanitizeInput($input_string);
-        $control_sanitized_input = htmlspecialchars(stripslashes(trim($input_string)));
-        $this->assertSame($control_sanitized_input, $sanitized_input);
+        $inputString = '<html> tags and #$&^%-=/\ symbols.';
+        $sanitizedInput = AlderleyUtility::sanitizeInput($inputString);
+        $controlSanitizedInput = htmlspecialchars(stripslashes(trim($inputString)));
+        $this->assertSame($controlSanitizedInput, $sanitizedInput);
+    }
+
+    public function testSanitizeString()
+    {
+        $inputString = '<html> tags and #$&^%-=/\ symbols.';
+        $sanitizedInput = AlderleyUtility::sanitizeString($inputString);
+        $controlSanitizedInput = htmlspecialchars(stripslashes(trim($inputString)));
+        $this->assertSame($controlSanitizedInput, $sanitizedInput);
+    }
+
+    public function testSanitizeInteger()
+    {
+        $inputInteger = '/4#3$2%8.9!0@1';
+        $sanitizedInput = AlderleyUtility::sanitizeInteger($inputInteger);
+        $controlSanitizedInput = '4328901';
+        $this->assertSame($controlSanitizedInput, $sanitizedInput);
+    }
+
+    public function testSanitizeEmail()
+    {
+        $inputString = 'te(st)@te//st.com';
+        $sanitizedInput = AlderleyUtility::sanitizeEmail($inputString);
+        $controlSanitizedInput = 'test@test.com';
+        $this->assertSame($controlSanitizedInput, $sanitizedInput);
+    }
+
+    public function testGetPaginationOffset()
+    {
+        $page = 3;
+        $paginationOffset = AlderleyUtility::getPaginationOffset($page);
+        $this->assertSame(18, $paginationOffset);
+    }
+
+    public function testCreateSlug()
+    {
+        $input = 'This@@!#!@# is?$/ an< example !slug';
+        $slug = AlderleyUtility::createSlug($input);
+        $this->assertSame('this-is-an-example-slug', $slug);
     }
 }

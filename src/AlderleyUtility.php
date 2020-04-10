@@ -100,17 +100,17 @@ class AlderleyUtility
 
     public static function sanitizeString(string $s): string
     {
-        return filter_var(sanitizeInput($s), FILTER_SANITIZE_STRING);
+        return filter_var(self::sanitizeInput($s), FILTER_SANITIZE_STRING);
     }
 
-    public static function sanitizeInteger(int $i): int
+    public static function sanitizeInteger($i)
     {
-        return filter_var(sanitizeInput($i), FILTER_SANITIZE_NUMBER_INT);
+        return filter_var(self::sanitizeInput($i), FILTER_SANITIZE_NUMBER_INT);
     }
 
     public static function sanitizeEmail(string $e): string
     {
-        return filter_var(sanitizeInput($e), FILTER_SANITIZE_EMAIL);
+        return filter_var(self::sanitizeInput($e), FILTER_SANITIZE_EMAIL);
     }
 
     public static function contactMail(string $mailTo, string $mailFrom, string $subject, array $fields): void
