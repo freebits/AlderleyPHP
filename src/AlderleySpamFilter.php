@@ -21,7 +21,8 @@ class AlderleySpamFilter
         }
 
         if ($spamCount > 0.0 && $hamCount > 0.0) {
-            $pOfWord = ($spamCount / count($keywords)) * ($hamCount / count($keywords));
+            $pOfWord = ($spamCount / ($hamCount + $spamCount)) * 100;
+            var_dump($pOfWord);
         } elseif ($spamCount == 0.0) {
             $pOfWord = 0.0;
         } else {
@@ -55,11 +56,11 @@ class AlderleySpamFilter
         if ($pOfSpam > $threshold) {
             $status = 1;
             for ($i=0; $i < count($notFound); $i++) {
-                updateKeyword($word, $keywords, $status);
+                self::updateKeyword($word, $keywords, $status);
             }
         } else {
             $status = 0;
-            updateKeyword($word, $keywords, $status);
+            self::updateKeyword($word, $keywords, $status);
         }
 
         return $status;
