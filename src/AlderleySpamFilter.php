@@ -22,7 +22,6 @@ class AlderleySpamFilter
 
         if ($spamCount > 0.0 && $hamCount > 0.0) {
             $pOfWord = ($spamCount / ($hamCount + $spamCount)) * 100;
-            var_dump($pOfWord);
         } elseif ($spamCount == 0.0) {
             $pOfWord = 0.0;
         } else {
