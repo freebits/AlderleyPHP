@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace AlderleyPHP;
+namespace Alderley;
 
 use AlderleyPHP\AlderleyUtility;
 use PHPUnit\Framework\TestCase;
 
-class AlderleyTest extends TestCase
+class Test extends TestCase
 {
     public function testGeneratePassword()
     {

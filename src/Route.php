@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace AlderleyPHP;
+namespace Alderley;
 
-class AlderleyRoute
+class Route
 {
     public string $method;
     public string $regex;
