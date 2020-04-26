@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace AlderleyPHP;
 
-class Utility
+class Core
 {
     public static function checkAuth(): void
     {
