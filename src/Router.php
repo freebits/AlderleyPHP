@@ -23,7 +23,8 @@ class Router
 
     public function addRoute(string $method, string $regex, callable $callback): void
     {
-        array_push($routes, AlderleyRoute($method, $regex, $callback));
+        $route = new Route($method, $regex, $callback);
+        array_push($this->routes, $route);
         return;
     }
 }
