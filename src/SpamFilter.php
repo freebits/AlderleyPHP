@@ -9,13 +9,15 @@ class SpamFilter
         $hamCount = 0.0;
         $spamCount = 0.0;
         $wordFound = false;
-        for ($i=0; $i < count($keywords); $i++) {
-            if (strcmp($word, $keywords[$i][0]) == 0) {
-                $hamCount = $keywords[$i][1];
-                $spamCount = $keywords[$i][2];
+        $counter = 0;
+
+        foreach($keywords as $keyword) {
+            if (strcmp($word, $keyword[0]) == 0) {
+                $hamCount = $keyword[1];
+                $spamCount = $keyword[2];
                 $wordFound = true;
             }
-            if ($i == (count($keywords)-1) && $wordFound == false) {
+            if ($counter == (count($keywords)-1) && $wordFound == false) {
                 array_push($keywords[0], $word, 0.0, 0.0);
             }
         }
