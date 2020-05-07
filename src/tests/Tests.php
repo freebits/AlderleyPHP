@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use AlderleyPHP\Utility;
+use AlderleyPHP\Core;
 use PHPUnit\Framework\TestCase;
 
 class Test extends TestCase
@@ -9,39 +9,39 @@ class Test extends TestCase
     public function testGeneratePassword()
     {
         $passwordLength = 32;
-        $password = Utility::generatePassword($passwordLength);
+        $password = Core::generatePassword($passwordLength);
         $this->assertSame($passwordLength, strlen($password));
     }
 
     public function testReadConfiguration()
     {
-        $configuration = Utility::getConfiguration('test.ini');
+        $configuration = Core::getConfiguration('test.ini');
         $this->assertTrue(!empty($configuration));
     }
 
     public function testGetConfigurationKey()
     {
-        $configuration = Utility::getConfiguration('test.ini');
+        $configuration = Core::getConfiguration('test.ini');
         $this->assertSame('test_value', $configuration['test_key']);
     }
 
     public function testGetDatabase()
     {
-        $dbh = Utility::getDatabase('pgsql:dbname=alderley-tests', 'user');
+        $dbh = Core::getDatabase('pgsql:dbname=alderley-tests', 'user');
         $this->assertTrue(!empty($dbh));
         $dbh = null;
     }
 
     public function testResizeImage()
     {
-        $resizedImage = Utility::resizeImage('test.jpg', 'test_resized', 20, 50);
+        $resizedImage = Core::resizeImage('test.jpg', 'test_resized', 20, 50);
         $imageSize = getimagesize('test_resized');
         $this->assertSame(20, $imageSize[0]);
     }
 
     public function testThumbnailImage()
     {
-        $thumbnailImage = Utility::thumbnailImage('test.jpg', 'test_thumbnail', 20, 20);
+        $thumbnailImage = Core::thumbnailImage('test.jpg', 'test_thumbnail', 20, 20);
         $imageSize = getimagesize('test_thumbnail');
         $this->assertSame(20, $imageSize[0]);
     }
@@ -49,7 +49,7 @@ class Test extends TestCase
     public function testSanitizeInput()
     {
         $inputString = '<html> tags and #$&^%-=/\ symbols.';
-        $sanitizedInput = Utility::sanitizeInput($inputString);
+        $sanitizedInput = Core::sanitizeInput($inputString);
         $controlSanitizedInput = htmlspecialchars(stripslashes(trim($inputString)));
         $this->assertSame($controlSanitizedInput, $sanitizedInput);
     }
@@ -57,7 +57,7 @@ class Test extends TestCase
     public function testSanitizeString()
     {
         $inputString = '<html> tags and #$&^%-=/\ symbols.';
-        $sanitizedInput = Utility::sanitizeString($inputString);
+        $sanitizedInput = Core::sanitizeString($inputString);
         $controlSanitizedInput = htmlspecialchars(stripslashes(trim($inputString)));
         $this->assertSame($controlSanitizedInput, $sanitizedInput);
     }
@@ -65,7 +65,7 @@ class Test extends TestCase
     public function testSanitizeInteger()
     {
         $inputInteger = '/4#3$2%8.9!0@1';
-        $sanitizedInput = Utility::sanitizeInteger($inputInteger);
+        $sanitizedInput = Core::sanitizeInteger($inputInteger);
         $controlSanitizedInput = '4328901';
         $this->assertSame($controlSanitizedInput, $sanitizedInput);
     }
@@ -73,7 +73,7 @@ class Test extends TestCase
     public function testSanitizeEmail()
     {
         $inputString = 'te(st)@te//st.com';
-        $sanitizedInput = Utility::sanitizeEmail($inputString);
+        $sanitizedInput = Core::sanitizeEmail($inputString);
         $controlSanitizedInput = 'test@test.com';
         $this->assertSame($controlSanitizedInput, $sanitizedInput);
     }
@@ -81,14 +81,14 @@ class Test extends TestCase
     public function testGetPaginationOffset()
     {
         $page = 3;
-        $paginationOffset = Utility::getPaginationOffset($page);
+        $paginationOffset = Core::getPaginationOffset($page);
         $this->assertSame(18, $paginationOffset);
     }
 
     public function testCreateSlug()
     {
         $input = 'This#@!#$%^& i*()s?$/ an< example !slug';
-        $slug = Utility::createSlug($input);
+        $slug = Core::createSlug($input);
         $this->assertSame('this-is-an-example-slug', $slug);
     }
 }
