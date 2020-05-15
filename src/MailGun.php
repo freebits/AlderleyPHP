@@ -4,8 +4,13 @@ namespace AlderleyPHP;
 
 class MailGun
 {
-    public static function sendMail(string $mgKey, string $mgUrl,
-        string $to, string $from, string $subject, string $text): void
+    public static function sendMail(
+        string $mgKey,
+        string $mgUrl,
+        string $to,
+        string $from,
+        string $subject,
+        string $text): void
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
