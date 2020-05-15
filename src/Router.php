@@ -19,6 +19,7 @@ class Router
                 }
             }
         }
+        return;
     }
 
     public function addRoute(string $method, string $regex, callable $callback): void
