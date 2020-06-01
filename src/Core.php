@@ -113,18 +113,6 @@ class Core
         return filter_var(self::sanitizeInput($e), FILTER_SANITIZE_EMAIL);
     }
 
-    public static function contactMail(string $mailTo, string $mailFrom, string $subject, array $fields): void
-    {
-        $body = '';
-        foreach ($fields as $field) {
-            list($label, $value) = $field;
-            $body .= $label.': '.$value.PHP_EOL;
-        }
-        $headers = 'From: '.$mailFrom;
-        mail($mailTo, $subject, $body, $headers);
-        return;
-    }
-
     public static function getPaginationOffset(int $page, int $limit = 9): int
     {
         return ($page - 1) * $limit;
