@@ -1,6 +1,6 @@
 {
-    "name": "freebits/alderley-php",
-    "description": "micro utlity library",
+    "name": "freebits/AlderleyPHP",
+    "description": "web development library",
     "type": "library",
     "readme": "README.md",
     "license": "BSD-2-Clause",
