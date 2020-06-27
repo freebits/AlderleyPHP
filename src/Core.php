@@ -124,9 +124,31 @@ class Core
         return;
     }
 
-    public static function redirectXAccel(string $uri): void
+    public static function xAccelRedirect(string $uri): void
     {
         header('X-Accel-Redirect: '.$uri);
+        return;
+    }
+
+    public static function nginxPushHeader($uri, $as): string
+    {
+        return "<{$uri}>; rel=preload; as={$as};";
+    } 
+
+    public static function nginxPush($header): void
+    {
+        header("Link: {$header}");
+        return;
+    }
+
+    public static function nginxPushMany($headers): void
+    {
+        $result = "";
+        foreach($headers as $h) 
+        {
+            $result .= $h;
+        }
+        header("Link: {$result}");
         return;
     }
 
