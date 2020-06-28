@@ -8,7 +8,7 @@ class Route
     public string $regex;
     public callable $callback;
 
-    public function __construct($method, $regex, $callback)
+    public function __construct(string $method, string $regex, callable $callback)
     {
         $this->method = $method;
         $this->regex = $regex;
