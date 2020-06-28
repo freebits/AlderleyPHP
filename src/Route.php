@@ -4,9 +4,9 @@ namespace AlderleyPHP;
 
 class Route
 {
-    public string $method;
-    public string $regex;
-    public callable $callback;
+    public $method;
+    public $regex;
+    public $callback;
 
     public function __construct(string $method, string $regex, callable $callback)
     {
