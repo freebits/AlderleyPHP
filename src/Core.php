@@ -167,7 +167,7 @@ class Core
             "method" => $method,
             "regex" => $regex,
             "callback" => $callback
-        )
+        );
     }
 
     public static function route($routes): void
