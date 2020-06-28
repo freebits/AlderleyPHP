@@ -161,7 +161,7 @@ class Core
         );
     }
 
-    public function createRoute(string $method, string $regex, callable $callback): array
+    public static function createRoute(string $method, string $regex, callable $callback): array
     {
         return array(
             "method" => $method,
@@ -170,7 +170,7 @@ class Core
         )
     }
 
-    public function route($routes): void
+    public static function route($routes): void
     {
         $uri = $_SERVER["REQUEST_URI"];
         $method = $_SERVER["REQUEST_METHOD"];
