@@ -75,8 +75,9 @@ class Core
         return new \PDO($dbUri, $dbUser);
     }
 
-    public static function resizeImage(string $imageIn, string $imageOut, int $cols, int $rows): void
-    {
+    public static function resizeImage(string $imageIn, string $imageOut,
+        int $cols, int $rows
+    ): void {
         $image = new \Imagick($imageIn);
         $image->adaptiveResizeImage($cols, $rows, true);
         $image->writeImage($imageOut);
@@ -84,8 +85,9 @@ class Core
         return;
     }
 
-    public static function thumbnailImage(string $imageIn, string $imageOut, int $cols, int $rows): void
-    {
+    public static function thumbnailImage(string $imageIn, string $imageOut,
+        int $cols, int $rows
+    ): void {
         $image = new \Imagick($imageIn);
         $image->thumbnailImage($cols, $rows, true);
         $image->writeImage($imageOut);
@@ -144,8 +146,7 @@ class Core
     public static function nginxPushMany($headers): void
     {
         $result = "";
-        foreach($headers as $h) 
-        {
+        foreach ($headers as $h) {
             $result .= $h;
         }
         header("Link: {$result}");
@@ -161,8 +162,9 @@ class Core
         );
     }
 
-    public static function createRoute(string $method, string $regex, callable $callback): array
-    {
+    public static function createRoute(string $method, string $regex, 
+        callable $callback
+    ): array {
         return array(
             "method" => $method,
             "regex" => $regex,
