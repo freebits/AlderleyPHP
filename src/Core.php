@@ -9,7 +9,7 @@ class Core
         session_start();
         if (empty($_SESSION['auth'])) {
             http_response_code(401);
-            exit;
+            return;
         }
     }
 
