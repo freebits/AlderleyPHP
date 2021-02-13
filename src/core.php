@@ -1,11 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace AlderleyPHP;
+namespace alderley_php;
 
-class Core
-{
-    public static function checkAuth(): void
-    {
+class core {
+
+    public static function check_auth(): void {
         session_start();
         if (empty($_SESSION['auth'])) {
             http_response_code(401);
@@ -13,22 +12,19 @@ class Core
         }
     }
 
-    public static function logIn(): void
-    {
+    public static function log_in(): void {
         session_start();
         $_SESSION['auth'] = true;
         return;
     }
 
-    public static function logOut(): void
-    {
+    public static function log_out(): void {
         session_start();
         unset($_SESSION['auth']);
         return;
     }
 
-    public static function generatePassword(int $passwordLength): string
-    {
+    public static function generate_password(int $password_length): string {
         $keyspace = array(
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
             'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
@@ -40,111 +36,92 @@ class Core
             '@', '#', '$', '%', '^', '&', '*', '(', ')');
                     
         $password = '';
-        for ($i = 0; $i < $passwordLength; $i++) {
+        for ($i = 0; $i < $password_length; $i++) {
             $password .= $keyspace[random_int(0, count($keyspace) - 1)];
         }
         return $password;
     }
 
-    public static function getConfiguration(string $cfgFilePath): array
-    {
-        return parse_ini_file($cfgFilePath);
+    public static function get_configuration(string $cfg_file_path): array {
+        return parse_ini_file($cfg_file_path);
     }
 
-    public static function newCSRFToken(): void
-    {
+    public static function new_csrf_token(): void {
         session_start();
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         return;
     }
 
-    public static function getCSRFToken(): string
-    {
+    public static function get_csrf_token(): string {
         session_start();
         return $_SESSION['csrf_token'];
     }
 
-    public static function checkCSRFToken(string $token): boolean
-    {
+    public static function check_csrf_token(string $token): boolean {
         session_start();
         return hash_equals($_SESSION['csrf_token'], $token);
     }
 
-    public static function getDatabase(string $dbUri, string $dbUser)
-    {
-        return new \PDO($dbUri, $dbUser);
+    public static function get_database(string $db_uri, string $db_user) {
+        return new \PDO($db_uri, $db_user);
     }
 
-    public static function resizeImage(string $imageIn, string $imageOut,
-        int $cols, int $rows
-    ): void {
-        $image = new \Imagick($imageIn);
+    public static function resize_image(string $image_in, string $image_out, int $cols, int $rows): void {
+        $image = new \Imagick($image_in);
         $image->adaptiveResizeImage($cols, $rows, true);
-        $image->writeImage($imageOut);
+        $image->writeImage($image_out);
         $image->destroy();
         return;
     }
 
-    public static function thumbnailImage(string $imageIn, string $imageOut,
-        int $cols, int $rows
-    ): void {
-        $image = new \Imagick($imageIn);
+    public static function thumbnail_image(string $image_in, string $image_out, int $cols, int $rows): void {
+        $image = new \Imagick($image_in);
         $image->thumbnailImage($cols, $rows, true);
-        $image->writeImage($imageOut);
+        $image->writeImage($image_out);
         $image->destroy();
         return;
     }
 
-    public static function sanitizeInput($i)
-    {
+    public static function sanitize_input($i) {
         return htmlspecialchars(stripslashes(trim($i)));
     }
 
-    public static function sanitizeString(string $s): string
-    {
-        return filter_var(self::sanitizeInput($s), FILTER_SANITIZE_STRING);
+    public static function sanitize_string(string $s): string {
+        return filter_var(self::sanitize_input($s), FILTER_SANITIZE_STRING);
     }
 
-    public static function sanitizeInteger($i)
-    {
-        return filter_var(self::sanitizeInput($i), FILTER_SANITIZE_NUMBER_INT);
+    public static function sanitize_integer($i) {
+        return filter_var(self::sanitize_input($i), FILTER_SANITIZE_NUMBER_INT);
     }
 
-    public static function sanitizeEmail(string $e): string
-    {
-        return filter_var(self::sanitizeInput($e), FILTER_SANITIZE_EMAIL);
+    public static function sanitize_email(string $e): string {
+        return filter_var(self::sanitize_input($e), FILTER_SANITIZE_EMAIL);
     }
 
-    public static function getPaginationOffset(int $page, int $limit = 9): int
-    {
+    public static function get_pagination_offset(int $page, int $limit = 9): int {
         return ($page - 1) * $limit;
     }
 
-    public static function redirect(string $uri): void
-    {
+    public static function redirect(string $uri): void {
         header('Location: '.$uri);
         return;
     }
 
-    public static function xAccelRedirect(string $uri): void
-    {
+    public static function x_accel_redirect(string $uri): void {
         header('X-Accel-Redirect: '.$uri);
         return;
     }
 
-    public static function nginxPushHeader($uri, $as): string
-    {
+    public static function nginx_push_header($uri, $as): string {
         return "<{$uri}>; rel=preload; as={$as};";
     } 
 
-    public static function nginxPush($header): void
-    {
+    public static function nginx_push($header): void {
         header("Link: {$header}");
         return;
     }
 
-    public static function nginxPushMany($headers): void
-    {
+    public static function nginx_push_many($headers): void {
         $result = "";
         foreach ($headers as $h) {
             $result .= $h;
@@ -153,8 +130,7 @@ class Core
         return;
     }
 
-    public static function createSlug(string $s): string
-    {
+    public static function create_slug(string $s): string {
         return str_replace(
             " ",
             "-",
@@ -162,9 +138,7 @@ class Core
         );
     }
 
-    public static function createRoute(string $method, string $regex, 
-        callable $callback
-    ): array {
+    public static function create_route(string $method, string $regex, callable $callback): array {
         return array(
             "method" => $method,
             "regex" => $regex,
@@ -172,8 +146,7 @@ class Core
         );
     }
 
-    public static function route($routes): void
-    {
+    public static function route($routes): void {
         $uri = $_SERVER["REQUEST_URI"];
         $method = $_SERVER["REQUEST_METHOD"];
         
