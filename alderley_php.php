@@ -1,7 +1,7 @@
 <?php
 function check_auth() {
     session_start();
-    if (empty($_SESSION['auth'])) {
+    if(empty($_SESSION['auth'])) {
         http_response_code(401);
         return;
     }
