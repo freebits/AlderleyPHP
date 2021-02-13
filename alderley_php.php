@@ -19,7 +19,7 @@ function log_out() {
     return;
 }
 
-function generate_password(int $password_length) {
+function generate_password($password_length) {
     $keyspace = array(
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
@@ -31,13 +31,13 @@ function generate_password(int $password_length) {
         '@', '#', '$', '%', '^', '&', '*', '(', ')');
                 
     $password = '';
-    for ($i = 0; $i < $password_length; $i++) {
+    for($i = 0; $i < $password_length; $i++) {
         $password .= $keyspace[random_int(0, count($keyspace) - 1)];
     }
     return $password;
 }
 
-function get_configuration(string $cfg_file_path) {
+function get_configuration($cfg_file_path) {
     return parse_ini_file($cfg_file_path);
 }
 
@@ -52,16 +52,16 @@ function get_csrf_token() {
     return $_SESSION['csrf_token'];
 }
 
-function check_csrf_token(string $token) {
+function check_csrf_token($token) {
     session_start();
     return hash_equals($_SESSION['csrf_token'], $token);
 }
 
-function get_database(string $db_uri, string $db_user) {
+function get_database($db_uri, $db_user) {
     return new \PDO($db_uri, $db_user);
 }
 
-function resize_image(string $image_in, string $image_out, int $cols, int $rows) {
+function resize_image($image_in, $image_out, $cols, $rows) {
     $image = new \Imagick($image_in);
     $image->adaptiveResizeImage($cols, $rows, true);
     $image->writeImage($image_out);
@@ -69,7 +69,7 @@ function resize_image(string $image_in, string $image_out, int $cols, int $rows)
     return;
 }
 
-function thumbnail_image(string $image_in, string $image_out, int $cols, int $rows) {
+function thumbnail_image($image_in, $image_out, $cols, $rows) {
     $image = new \Imagick($image_in);
     $image->thumbnailImage($cols, $rows, true);
     $image->writeImage($image_out);
@@ -81,28 +81,28 @@ function sanitize_input($i) {
     return htmlspecialchars(stripslashes(trim($i)));
 }
 
-function sanitize_string(string $s) {
-    return filter_var(self::sanitize_input($s), FILTER_SANITIZE_STRING);
+function sanitize_string($s) {
+    return filter_var(sanitize_input($s), FILTER_SANITIZE_STRING);
 }
 
 function sanitize_integer($i) {
-    return filter_var(self::sanitize_input($i), FILTER_SANITIZE_NUMBER_INT);
+    return filter_var(sanitize_input($i), FILTER_SANITIZE_NUMBER_INT);
 }
 
-function sanitize_email(string $e) {
-    return filter_var(self::sanitize_input($e), FILTER_SANITIZE_EMAIL);
+function sanitize_email($e) {
+    return filter_var(sanitize_input($e), FILTER_SANITIZE_EMAIL);
 }
 
-function get_pagination_offset(int $page, int $limit = 9) {
+function get_pagination_offset($page, $limit) {
     return ($page - 1) * $limit;
 }
 
-function redirect(string $uri) {
+function redirect($uri) {
     header('Location: '.$uri);
     return;
 }
 
-function x_accel_redirect(string $uri) {
+function x_accel_redirect($uri) {
     header('X-Accel-Redirect: '.$uri);
     return;
 }
@@ -125,7 +125,7 @@ function nginx_push_many($headers) {
     return;
 }
 
-function create_slug(string $s) {
+function create_slug($s) {
     return str_replace(
         " ",
         "-",
@@ -133,7 +133,7 @@ function create_slug(string $s) {
     );
 }
 
-function create_route(string $method, string $regex, callable $callback) {
+function create_route($method, $regex, $callback) {
     return array(
         "method" => $method,
         "regex" => $regex,
@@ -145,9 +145,9 @@ function route($routes) {
     $uri = $_SERVER["REQUEST_URI"];
     $method = $_SERVER["REQUEST_METHOD"];
     
-    foreach ($routes as $route) {
-        if ($route["method"] === $method) {
-            if (preg_match($route["regex"], $uri, $params) === 1) {
+    foreach($routes as $route) {
+        if($route["method"] === $method) {
+            if(preg_match($route["regex"], $uri, $params) === 1) {
                 call_user_func($route["callback"], $params);
                 return;
             }
