@@ -118,7 +118,7 @@ function nginx_push($header) {
 
 function nginx_push_many($headers) {
     $result = "";
-    foreach ($headers as $h) {
+    foreach($headers as $h) {
         $result .= $h;
     }
     header("Link: {$result}");
