@@ -1,11 +1,11 @@
 {
-    "name": "trader/php-quick",
+    "name": "freebits/php-quick",
     "require-dev": {
         "phan/phan": "^5.4"
     },
     "autoload": {
         "psr-4": {
-            "Trader\\PhpQuick\\": "src/"
+            "FreeBits\\PhpQuick\\": "src/"
         }
     },
     "authors": [
