@@ -1,0 +1,18 @@
+{
+    "name": "trader/php-quick",
+    "require-dev": {
+        "phan/phan": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Trader\\PhpQuick\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Free Bits",
+            "email": "freebits@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
