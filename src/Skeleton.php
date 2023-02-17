@@ -18,5 +18,4 @@ class Skeleton {
         }
         return $connection;
     }
-
 }
