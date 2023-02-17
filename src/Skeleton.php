@@ -2,13 +2,13 @@
 
 class Skeleton {
     
-    protected string $configuration; 
+    protected array $configuration; 
     
     function __construct(string $configuration) {
-        $this->$configuration = parse_ini_file($configuration); 
+        $this->configuration = parse_ini_file($configuration); 
     }
 
-    public static function GetDatabase() {
+    public function GetDatabase() {
         $connection = null;
         try {
             $connection = new PDO($this->configuration["DATABASE_CONNECTION_STRING"]);
