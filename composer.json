@@ -14,5 +14,7 @@
             "email": "freebits@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-pdo": "*"
+    }
 }

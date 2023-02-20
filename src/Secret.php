@@ -1,5 +1,7 @@
 <?php
 namespace Secret;
+use PDO;
+
 class Secret
 {
     private array $configuration;
