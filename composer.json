@@ -1,5 +1,5 @@
 {
-    "name": "freebits/php-quick",
+    "name": "freebits/secret",
     "require-dev": {
         "phan/phan": "^5.4"
     },
