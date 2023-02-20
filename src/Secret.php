@@ -1,6 +1,6 @@
 <?php
-
-class Skeleton
+namespace Secret;
+class Secret
 {
 
     protected array $configuration;

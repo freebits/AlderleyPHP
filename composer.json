@@ -5,7 +5,7 @@
     },
     "autoload": {
         "psr-4": {
-            "FreeBits\\PhpQuick\\": "src/"
+            "Secret\\": "src/"
         }
     },
     "authors": [
