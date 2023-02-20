@@ -2,19 +2,36 @@
 namespace Secret;
 class Secret
 {
-
-    protected array $configuration;
+    private array $configuration;
 
     function __construct(string $configuration)
     {
-        $this->configuration = parse_ini_file($configuration);
+        $cfg = parse_ini_file($configuration);
+        if($cfg === false)
+        {
+            error_log();
+        }
+        else
+        {
+            $this->set_configuration($cfg);
+        }
     }
 
+    public function get_configuration(): array
+    {
+        return $this->configuration;
+    }
+
+    public function set_configuration(array $configuration): void
+    {
+        $this->configuration = $configuration;
+    }
     public function get_database(): PDO
     {
         $connection = null;
         try {
-            $connection = new PDO($this->configuration["DATABASE_CONNECTION_STRING"]);
+            $configuration = $this->get_configuration();
+            $connection = new PDO($configuration["DATABASE_CONNECTION_STRING"]);
         } catch (PDOException $e) {
             error_log($e);
         }
@@ -29,8 +46,9 @@ class Secret
             error_log("Could not initialize curl");
         }
 
-        $mailgun_secret_key = $this->configuration['MAILGUN_SECRET_KEY'];
-        $mailgun_domain = $this->configuration['MAILGUN_DOMAIN'];
+        $configuration = $this->get_configuration();
+        $mailgun_secret_key = $configuration['MAILGUN_SECRET_KEY'];
+        $mailgun_domain = $configuration['MAILGUN_DOMAIN'];
 
         if(!curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC))
         {
