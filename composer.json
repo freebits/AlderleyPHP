@@ -1,5 +1,5 @@
 {
-  "name": "freebits/secret",
+  "name": "freebits/Gold",
   "autoload": {
     "psr-4": {
       "Gold\\": "src/"
