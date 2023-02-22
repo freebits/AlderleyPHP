@@ -42,13 +42,14 @@ class Secret
 
     public function generate_password(int $password_length): string
     {
-        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        $number_of_chars = strlen($chars);
-        $results = "";
+        $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        $alphabet_len = strlen($alphabet) - 1;
+        $password = array();
         for($i=0; $i < $password_length; $i++)
         {
-            $results .= $chars[random_int(0, $number_of_chars)];
+            $random_letter = $alphabet[random_int(0, $alphabet_len)];
+            $password[] = $random_letter;
         }
-        return $results;
+        return implode($password);
     }
 }
