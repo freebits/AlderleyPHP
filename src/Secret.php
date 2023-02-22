@@ -1,5 +1,6 @@
 <?php
 namespace Secret;
+use Memcached;
 use PDO;
 
 class Secret
@@ -52,4 +53,12 @@ class Secret
         }
         return implode($password);
     }
+
+    public function get_memcached(): Memcached
+    {
+        $m = new Memcached();
+        $m->addServer("localhost", 11211);
+        return  $m;
+    }
+
 }
