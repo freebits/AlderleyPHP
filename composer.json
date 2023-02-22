@@ -1,20 +1,19 @@
 {
-    "name": "freebits/secret",
-    "require-dev": {
-        "phan/phan": "^5.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "Secret\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Free Bits",
-            "email": "freebits@users.noreply.github.com"
-        }
-    ],
-    "require": {
-        "ext-pdo": "*"
+  "name": "freebits/secret",
+  "autoload": {
+    "psr-4": {
+      "Secret\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Free Bits",
+      "email": "freebits@users.noreply.github.com"
+    }
+  ],
+  "require": {
+    "ext-pdo": "*",
+    "ext-memcached": "*",
+    "ext-gearman": "*"
+  }
 }
