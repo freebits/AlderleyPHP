@@ -1,6 +1,6 @@
 <?php
 
-namespace Secret;
+namespace Gold;
 
 use GearmanClient;
 use Memcached;
