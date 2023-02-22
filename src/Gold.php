@@ -20,25 +20,25 @@ class Gold
         if (false === $configuration) {
             throw new ConfigurationError();
         } else {
-            $this->SetConfiguration($configuration);
+            $this->setConfiguration($configuration);
         }
     }
 
-    public function GetConfiguration(): array
+    public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
-    public function SetConfiguration(array $configuration): void
+    public function setConfiguration(array $configuration): void
     {
         $this->configuration = $configuration;
     }
 
-    public function GetDatabase(): PDO
+    public function getDatabase(): PDO
     {
         $connection = null;
         try {
-            $configuration = $this->GetConfiguration();
+            $configuration = $this->getConfiguration();
             $connection = new PDO($configuration["DATABASE_CONNECTION_STRING"]);
         } catch (PDOException $e) {
             error_log($e);
@@ -49,7 +49,7 @@ class Gold
     /**
      * @throws \Exception
      */
-    public function GeneratePassword(int $password_length): string
+    public function generatePassword(int $password_length): string
     {
         $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         $alphabet_len = strlen($alphabet) - 1;
@@ -62,18 +62,17 @@ class Gold
         return implode($password);
     }
 
-    public function GetMemcached(): Memcached
-    {
-        $m = new Memcached();
-        $m->addServer("localhost", 11211);
-        return $m;
-    }
-
-    public function GetGearman(): GearmanClient
+    public function sendMail(string $to, string $from, string $subject, string $message): void
     {
         $g = new GearmanClient();
         $g->addServer();
-        return $g;
+        $data = array(
+            't0' => $to,
+            'from' => $from,
+            'subject' => $subject,
+            'message' => $message
+        );
+        $g->doBackground("send_email", json_encode($data));
     }
 
 }
