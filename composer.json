@@ -2,7 +2,7 @@
   "name": "freebits/secret",
   "autoload": {
     "psr-4": {
-      "Secret\\": "src/"
+      "Gold\\": "src/"
     }
   },
   "authors": [
