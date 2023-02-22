@@ -2,8 +2,8 @@
 
 namespace Gold;
 
+use Exception;
 use GearmanClient;
-use Memcached;
 use PDO;
 use PDOException;
 
@@ -21,7 +21,7 @@ class Gold
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static function generatePassword(int $password_length): string
     {
