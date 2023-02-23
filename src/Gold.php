@@ -15,7 +15,8 @@ class Gold
         try {
             $connection = new PDO($dsn);
         } catch (PDOException $e) {
-            error_log($e);
+            error_log($e->getMessage());
+            exit();
         }
         return $connection;
     }
@@ -46,7 +47,7 @@ class Gold
             'subject' => $subject,
             'message' => $message
         );
-        $g->doBackground("send_email", json_encode($data));
+        $json_data = json_encode($data);
+        $g->doBackground("send_email", $json_data);
     }
-
 }
