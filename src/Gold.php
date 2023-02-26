@@ -50,4 +50,17 @@ class Gold
         $json_data = json_encode($data);
         $g->doBackground("send_email", $json_data);
     }
+
+   public static function authCheck(): void
+   {
+       session_start();
+       if(!array_key_exists('account_id', $_SESSION)) {
+           http_response_code(401);
+           exit();
+       }
+       else if(!$_SESSION['account_id']) {
+           http_response_code(401);
+           exit();
+       }
+   }
 }
