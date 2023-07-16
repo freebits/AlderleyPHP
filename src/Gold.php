@@ -37,7 +37,7 @@ class Gold
         return implode($password);
     }
 
-    public static function sendEmail(string $to, string $from, string $subject, string $message): void
+    public static function sendMailGunEmail(string $to, string $from, string $subject, string $message): void
     {
         $g = new GearmanClient();
         $g->addServer('127.0.0.1');
@@ -48,7 +48,7 @@ class Gold
             'message' => $message
         );
         $json_data = json_encode($data);
-        $g->doBackground("send_email", $json_data);
+        $g->doBackground("send_mail_gun_email", $json_data);
     }
 
    public static function authCheck(): void
