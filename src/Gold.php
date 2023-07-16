@@ -40,9 +40,9 @@ class Gold
     public static function sendMail(string $to, string $from, string $subject, string $message): void
     {
         $g = new GearmanClient();
-        $g->addServer();
+        $g->addServer('127.0.0.1');
         $data = array(
-            't0' => $to,
+            'to' => $to,
             'from' => $from,
             'subject' => $subject,
             'message' => $message
