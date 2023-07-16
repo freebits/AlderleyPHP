@@ -37,13 +37,12 @@ class Gold
         return implode($password);
     }
 
-    public static function sendMailGunEmail(string $to, string $from, string $subject, string $message): void
+    public static function sendMailGunEmail(string $to, string $subject, string $message): void
     {
         $g = new GearmanClient();
-        $g->addServer('127.0.0.1');
+        $g->addServer();
         $data = array(
             'to' => $to,
-            'from' => $from,
             'subject' => $subject,
             'message' => $message
         );
